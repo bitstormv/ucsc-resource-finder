@@ -405,33 +405,9 @@ const QuizGame = () => {
   );
 };
 
-// --- Main App ---
+import UCSCPlaces from './UCSCPlaces';
 
-const UCSCMap = () => {
-  return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="mb-8 text-center">
-        <h1 className="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-          UCSC <span className="text-blue-600">Places</span>
-        </h1>
-        <p className="text-slate-600 max-w-2xl mx-auto">
-          Find your way around the University of Colombo School of Computing campus.
-        </p>
-      </div>
-      <div className="bg-white p-2 md:p-4 rounded-3xl shadow-sm border border-slate-200 h-[600px] w-full overflow-hidden">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9029323036134!2d79.85896427499632!3d6.902205493096695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25963120b1509%3A0x2db2c18a68712863!2sUniversity%20of%20Colombo%20School%20of%20Computing%20(UCSC)!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
-          width="100%" 
-          height="100%" 
-          style={{ border: 0, borderRadius: '1rem' }} 
-          allowFullScreen={true} 
-          loading="lazy" 
-          referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
-    </div>
-  );
-};
+// --- Main App ---
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('Study');
@@ -462,7 +438,7 @@ export default function App() {
       case 'Scholarship':
         return <ResourceHub category={activeTab} />;
       case 'Map':
-        return <UCSCMap />;
+        return <UCSCPlaces />;
       case 'Quiz':
         return <QuizGame />;
       default:
