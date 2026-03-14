@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Plus, Edit2, Trash2, X, Save, AlertCircle, RotateCcw, ArrowLeft } from 'lucide-react';
+import { Plus, Edit2, Trash2, X, Save, AlertCircle, RotateCcw, ArrowLeft, Upload } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { usePlaces } from './hooks/usePlaces';
 import { Place } from './data/places';
@@ -46,6 +46,17 @@ export default function AdminPanel() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData(prev => ({ ...prev, imageUrl: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -121,9 +132,11 @@ export default function AdminPanel() {
                 <tr key={place.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                   <td className="px-6 py-4">
                     <div className="font-medium text-slate-900 dark:text-white">{place.name}</div>
-                    <div className="text-sm text-slate-500 dark:text-slate-400">{place.floor}</div>
+                    {place.floor && <div className="text-sm text-slate-500 dark:text-slate-400">{place.floor}</div>}
                   </td>
-                  <td className="px-6 py-4 text-slate-700 dark:text-slate-300">{place.building}</td>
+                  <td className="px-6 py-4 text-slate-700 dark:text-slate-300">
+                    {place.building || <span className="text-slate-400 dark:text-slate-500 italic text-sm">Not specified</span>}
+                  </td>
                   <td className="px-6 py-4">
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
                       {place.category}
@@ -220,11 +233,10 @@ export default function AdminPanel() {
                       </select>
                     </div>
                     <div className="space-y-1.5">
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Building *</label>
+                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Building</label>
                       <input
                         type="text"
                         name="building"
-                        required
                         value={formData.building || ''}
                         onChange={handleInputChange}
                         placeholder="e.g., Main Building"
@@ -232,11 +244,10 @@ export default function AdminPanel() {
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Floor *</label>
+                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Floor</label>
                       <input
                         type="text"
                         name="floor"
-                        required
                         value={formData.floor || ''}
                         onChange={handleInputChange}
                         placeholder="e.g., 1st Floor"
@@ -309,15 +320,31 @@ export default function AdminPanel() {
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Image URL</label>
-                        <input
-                          type="url"
-                          name="imageUrl"
-                          value={formData.imageUrl || ''}
-                          onChange={handleInputChange}
-                          placeholder="https://..."
-                          className="w-full px-4 py-2.5 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
-                        />
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Image</label>
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            name="imageUrl"
+                            value={formData.imageUrl || ''}
+                            onChange={handleInputChange}
+                            placeholder="https://... or upload"
+                            className="flex-1 px-4 py-2.5 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all dark:text-white"
+                          />
+                          <label className="flex items-center justify-center px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl cursor-pointer transition-colors border border-slate-200 dark:border-slate-700" title="Upload local image">
+                            <Upload className="w-4 h-4" />
+                            <input 
+                              type="file" 
+                              accept="image/*" 
+                              className="hidden" 
+                              onChange={handleImageUpload} 
+                            />
+                          </label>
+                        </div>
+                        {formData.imageUrl && formData.imageUrl.startsWith('data:image') && (
+                          <div className="text-xs text-green-600 dark:text-green-400 mt-1">
+                            Local image uploaded successfully
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
