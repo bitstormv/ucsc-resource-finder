@@ -44,9 +44,18 @@ export function usePlaces() {
   }, []);
 
   const savePlaces = (newPlaces: Place[]) => {
-    setPlaces(newPlaces);
-    localStorage.setItem('ucsc_places', JSON.stringify(newPlaces));
-    window.dispatchEvent(new Event('placesUpdated'));
+    try {
+      setPlaces(newPlaces);
+      localStorage.setItem('ucsc_places', JSON.stringify(newPlaces));
+      window.dispatchEvent(new Event('placesUpdated'));
+    } catch (error) {
+      console.error('Failed to save places to local storage:', error);
+      if (error instanceof Error && error.name === 'QuotaExceededError') {
+        alert('Storage limit reached! Local images are too large. Please use Google Drive links instead of uploading files, or delete some other locations.');
+      } else {
+        alert('Failed to save changes. Please check your browser storage settings.');
+      }
+    }
   };
 
   const addPlace = (place: Omit<Place, 'id'>) => {
