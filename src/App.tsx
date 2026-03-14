@@ -21,10 +21,12 @@ import {
   Moon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Routes, Route, Link } from 'react-router-dom';
 import { RESOURCES, QUIZ_QUESTIONS } from './data';
 import { Resource, Question } from './types';
 import StudyResources from './StudyResources';
 import CoverSlideshow from './CoverSlideshow';
+import AdminPanel from './AdminPanel';
 
 // --- Components ---
 
@@ -409,7 +411,7 @@ import UCSCPlaces from './UCSCPlaces';
 
 // --- Main App ---
 
-export default function App() {
+function MainApp() {
   const [activeTab, setActiveTab] = useState('Study');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -483,8 +485,22 @@ export default function App() {
           <p className="text-slate-400 dark:text-slate-500 text-sm">
             &copy; {new Date().getFullYear()} UCSC Resource Finder. Empowering students through knowledge.
           </p>
+          <div className="mt-4">
+            <Link to="/admin" className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium">
+              Admin Panel Access
+            </Link>
+          </div>
         </div>
       </footer>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<MainApp />} />
+      <Route path="/admin" element={<AdminPanel />} />
+    </Routes>
   );
 }
