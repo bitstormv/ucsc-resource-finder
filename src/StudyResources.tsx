@@ -10,7 +10,9 @@ import {
   Send, 
   ThumbsUp,
   ExternalLink,
-  Search
+  Search,
+  X,
+  Download
 } from 'lucide-react';
 import CoverSlideshow from './CoverSlideshow';
 
@@ -103,7 +105,7 @@ const getColor = (type: string) => {
   }
 };
 
-const StudyCard = ({ item }: { item: StudyItem }) => {
+const StudyCard = ({ item, onSelect }: { item: StudyItem, onSelect: (item: StudyItem) => void }) => {
   const [userRating, setUserRating] = useState<number | null>(null);
   const [hoverRating, setHoverRating] = useState<number | null>(null);
 
@@ -159,13 +161,12 @@ const StudyCard = ({ item }: { item: StudyItem }) => {
           </div>
         </div>
         
-        <a
-          href={item.link}
-          onClick={(e) => e.preventDefault()}
+        <button
+          onClick={() => onSelect(item)}
           className="w-full inline-flex items-center justify-center gap-2 text-sm font-semibold text-white bg-slate-900 dark:bg-slate-800 hover:bg-blue-600 dark:hover:bg-blue-600 py-2.5 rounded-xl transition-colors"
         >
           Access Resource <ExternalLink className="w-4 h-4" />
-        </a>
+        </button>
       </div>
     </motion.div>
   );
@@ -174,6 +175,7 @@ const StudyCard = ({ item }: { item: StudyItem }) => {
 export default function StudyResources() {
   const [activeTab, setActiveTab] = useState<SubCategory>('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedResource, setSelectedResource] = useState<StudyItem | null>(null);
   
   // Student Hub State
   const [feedback, setFeedback] = useState('');
@@ -250,7 +252,7 @@ export default function StudyResources() {
       >
         <AnimatePresence mode="popLayout">
           {filteredItems.map(item => (
-            <StudyCard key={item.id} item={item} />
+            <StudyCard key={item.id} item={item} onSelect={setSelectedResource} />
           ))}
         </AnimatePresence>
       </motion.div>
@@ -361,6 +363,76 @@ export default function StudyResources() {
           </div>
         </div>
       </div>
+
+      {/* Resource Viewer Modal */}
+      <AnimatePresence>
+        {selectedResource && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedResource(null)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-4xl max-h-[90vh] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+            >
+              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-lg border ${getColor(selectedResource.type)} dark:bg-opacity-10 dark:border-opacity-20`}>
+                    {getIcon(selectedResource.type)}
+                  </div>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white line-clamp-1">
+                    {selectedResource.title}
+                  </h2>
+                </div>
+                <button 
+                  onClick={() => setSelectedResource(null)}
+                  className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-6 bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center min-h-[400px]">
+                {/* Placeholder for actual PDF/Video viewer */}
+                <div className="text-center max-w-md mx-auto">
+                  <div className="w-24 h-24 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto mb-6">
+                    {getIcon(selectedResource.type)}
+                  </div>
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                    Resource Viewer
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 mb-8">
+                    In a real application, the {selectedResource.type.toLowerCase()} would be displayed here using a PDF viewer or video player.
+                  </p>
+                  
+                  <button
+                    onClick={() => {
+                      // Mock download functionality
+                      const element = document.createElement("a");
+                      const file = new Blob(["Mock content for " + selectedResource.title], {type: 'text/plain'});
+                      element.href = URL.createObjectURL(file);
+                      element.download = `${selectedResource.title.replace(/\s+/g, '_')}.txt`;
+                      document.body.appendChild(element);
+                      element.click();
+                      document.body.removeChild(element);
+                    }}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors shadow-sm w-full sm:w-auto"
+                  >
+                    <Download className="w-5 h-5" />
+                    Download
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
