@@ -1,0 +1,5 @@
+{
+  "name": "UCSC Resource Finder",
+  "description": "A resource finder and learning tool for university students featuring a resource hub and a CS/Web Dev quiz.",
+  "requestFramePermissions": []
+}
