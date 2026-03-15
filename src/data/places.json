@@ -17,7 +17,8 @@
     "category": "Lecture Hall",
     "description": "Large lecture hall used for main batch lectures.",
     "directions": "From the main entrance, walk past the UCSC Computer Museum. It is the large hall on the right.",
-    "floorPlanUrl": "https://drive.google.com/file/d/1dX0AidiQqWxUAF7dF0LeIjcSC8deAQTn/view?usp=drive_link"
+    "floorPlanUrl": "https://drive.google.com/file/d/1dX0AidiQqWxUAF7dF0LeIjcSC8deAQTn/view?usp=drive_link",
+    "imageUrl": "https://drive.google.com/file/d/1K9x9zENOYh_cfeXskzfogAmqpBlatGth/view?usp=drive_link"
   },
   {
     "id": "3",
@@ -97,6 +98,21 @@
     "category": "Lecture Hall",
     "description": "The main auditorium for large events, inaugurations, and conferences.",
     "directions": "Take the main staircase all the way up to the 4th floor. Walk past the Finance Division and the 4th Floor Lecture Hall (E401) to reach the auditorium.",
-    "floorPlanUrl": "https://drive.google.com/file/d/1JAQjaktKK0mbjQwdSD_pFWyD7nQsW0h9/view?usp=drive_link"
+    "floorPlanUrl": "https://drive.google.com/file/d/1JAQjaktKK0mbjQwdSD_pFWyD7nQsW0h9/view?usp=drive_link",
+    "imageUrl": "https://drive.google.com/file/d/1pFDCw7O2gS79TTQiz3n5Q1IQ1CvOHBkF/view?usp=drive_link"
+  },
+  {
+    "name": "E401",
+    "building": "Main Building",
+    "floor": "4th Floor",
+    "category": "Lecture Hall",
+    "description": "E401 is a lecture room use to conduct classes and academic lectures",
+    "directions": "Take the stairs to the 4th floor and turn left and enter the large lecture hall directly in front of the V K Samaranayaka Auditorium",
+    "hours": "",
+    "accessibility": "",
+    "contact": "",
+    "imageUrl": "https://drive.google.com/file/d/1U0rHjJKwth0AGPBmWOlVoAOoHhSpm1-s/view?usp=drive_link",
+    "floorPlanUrl": "",
+    "id": "1773551032603"
   }
 ]
