@@ -5,8 +5,9 @@
     "building": "Main Building",
     "floor": "2nd Floor",
     "category": "Library",
-    "description": "Main library for UCSC students with a wide collection of books and study areas.",
-    "directions": "Take the main staircase to the 2nd floor. The entrance is immediately visible near the bag lockers."
+    "description": "Main library for UCSC students with a wide collection of books, digital resources, and study areas.",
+    "directions": "Take the main staircase to the 2nd floor. The entrance is immediately visible near the bag lockers.",
+    "floorPlanUrl": "https://drive.google.com/file/d/10zGdAX4y1Jm58yP3ugO5q_9Ds-YZ-vjJ/view?usp=drive_link"
   },
   {
     "id": "2",
@@ -15,7 +16,8 @@
     "floor": "1st Floor",
     "category": "Lecture Hall",
     "description": "Large lecture hall used for main batch lectures.",
-    "directions": "From the main entrance, walk past the UCSC Computer Museum. It is the large hall on the right."
+    "directions": "From the main entrance, walk past the UCSC Computer Museum. It is the large hall on the right.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1dX0AidiQqWxUAF7dF0LeIjcSC8deAQTn/view?usp=drive_link"
   },
   {
     "id": "3",
@@ -24,7 +26,8 @@
     "floor": "1st Floor",
     "category": "Lab",
     "description": "Computer laboratory primarily used for software engineering practical sessions.",
-    "directions": "Located in the west wing of the 1st floor. Walk past the Student Common Room and turn left."
+    "directions": "Located in the west wing of the 1st floor. Walk past the Student Common Room and turn left.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1FVd_7niTSUCu0_1LmwK9F0XcGbFAmGpj/view?usp=drive_link"
   },
   {
     "id": "4",
@@ -33,7 +36,8 @@
     "floor": "1st Floor",
     "category": "Lab",
     "description": "General purpose computer laboratory for students.",
-    "directions": "Located in the west wing of the 1st floor, right next to Lab A."
+    "directions": "Located in the west wing of the 1st floor, right next to Lab A.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1Nsd7VpDkgupCw_G48kaMoK3sxL6a4WmP/view?usp=drive_link"
   },
   {
     "id": "5",
@@ -42,7 +46,8 @@
     "floor": "1st Floor",
     "category": "Office",
     "description": "Handles student affairs, academic matters, and publications.",
-    "directions": "1st floor, central block, between the NOC and Examinations Division."
+    "directions": "1st floor, central block, between the NOC and Examinations Division.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1pVrn6TrpKmx01UvRGnG0bAUSegrRRseM/view?usp=drive_link"
   },
   {
     "id": "6",
@@ -51,7 +56,8 @@
     "floor": "Ground Floor",
     "category": "Canteen",
     "description": "Student canteen serving meals, snacks, and beverages.",
-    "directions": "Located on the ground floor near the student recreation area."
+    "directions": "Located on the ground floor near the student recreation area.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1KYrQePgbmV3_KK0oMCOH977iimKlkL5z/view?usp=drive_link"
   },
   {
     "id": "7",
@@ -60,7 +66,8 @@
     "floor": "1st Floor",
     "category": "Office",
     "description": "Handles student registrations, exams, and issuing of transcripts.",
-    "directions": "1st floor, east wing. Walk towards the waiting lobby and Shroff counter."
+    "directions": "1st floor, east wing. Walk towards the waiting lobby and Shroff counter.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1_f1sL-ZbdY2TwWos8YjAcdSpSSIwa4pg/view?usp=drive_link"
   },
   {
     "id": "8",
@@ -69,7 +76,8 @@
     "floor": "1st Floor",
     "category": "Lab",
     "description": "Handles UCSC network infrastructure and serves as a specialized network lab.",
-    "directions": "1st floor, central block, next to the Student Common Room."
+    "directions": "1st floor, central block, next to the Student Common Room.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1owMT-6LagAr7O_s_fhr3P8MzE747iZOp/view?usp=drive_link"
   },
   {
     "id": "9",
@@ -78,7 +86,8 @@
     "floor": "2nd Floor",
     "category": "Lecture Hall",
     "description": "Medium-sized auditorium for guest lectures and special sessions.",
-    "directions": "Take the main staircase to the 2nd floor and walk straight past the Library along the main corridor. It is located just past the Library."
+    "directions": "Take the main staircase to the 2nd floor and walk straight past the Library along the main corridor. It is located just past the Library.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1vR19IYoV4KG-ZWyaAT-5AdbSsLHH9udC/view?usp=drive_link"
   },
   {
     "id": "10",
@@ -87,6 +96,7 @@
     "floor": "4th Floor",
     "category": "Lecture Hall",
     "description": "The main auditorium for large events, inaugurations, and conferences.",
-    "directions": "Take the main staircase all the way up to the 4th floor. Walk past the Finance Division and the 4th Floor Lecture Hall (E401) to reach the auditorium."
+    "directions": "Take the main staircase all the way up to the 4th floor. Walk past the Finance Division and the 4th Floor Lecture Hall (E401) to reach the auditorium.",
+    "floorPlanUrl": "https://drive.google.com/file/d/1JAQjaktKK0mbjQwdSD_pFWyD7nQsW0h9/view?usp=drive_link"
   }
 ]
