@@ -7,6 +7,7 @@
     "category": "Library",
     "description": "Main library for UCSC students with a wide collection of books, digital resources, and study areas.",
     "directions": "Take the main staircase to the 2nd floor. The entrance is immediately visible near the bag lockers.",
+    "imageUrl": "/places/library.png",
     "floorPlanUrl": "https://drive.google.com/file/d/10zGdAX4y1Jm58yP3ugO5q_9Ds-YZ-vjJ/view?usp=drive_link"
   },
   {
@@ -28,7 +29,8 @@
     "category": "Lab",
     "description": "Computer laboratory primarily used for software engineering practical sessions.",
     "directions": "Located in the west wing of the 1st floor. Walk past the Student Common Room and turn left.",
-    "floorPlanUrl": "https://drive.google.https://drive.google.com/file/d/1FVd_7niTSUCu0_1LmwK9F0XcGbFAmGpj/view"
+    "imageUrl": "/places/LAB A.png",
+    "floorPlanUrl": "https://drive.google.com/file/d/1FVd_7niTSUCu0_1LmwK9F0XcGbFAmGpj/view"
   },
   {
     "id": "4",
@@ -38,6 +40,7 @@
     "category": "Lab",
     "description": "General purpose computer laboratory for students.",
     "directions": "Located in the west wing of the 1st floor, right next to Lab A.",
+    "imageUrl": "/places/Lab b.png",
     "floorPlanUrl": "https://drive.google.com/file/d/1Nsd7VpDkgupCw_G48kaMoK3sxL6a4WmP/view?usp=drive_link"
   },
   {
@@ -58,6 +61,7 @@
     "category": "Canteen",
     "description": "Student canteen serving meals, snacks, and beverages.",
     "directions": "Located on the ground floor near the student recreation area.",
+    "imageUrl": "/places/canteen.png",
     "floorPlanUrl": "https://drive.google.com/file/d/1KYrQePgbmV3_KK0oMCOH977iimKlkL5z/view?usp=drive_link"
   },
   {
@@ -78,6 +82,7 @@
     "category": "Lab",
     "description": "Handles UCSC network infrastructure and serves as a specialized network lab.",
     "directions": "1st floor, central block, next to the Student Common Room.",
+    "imageUrl": "/places/network operating center.png",
     "floorPlanUrl": "https://drive.google.com/file/d/1owMT-6LagAr7O_s_fhr3P8MzE747iZOp/view?usp=drive_link"
   },
   {
@@ -98,10 +103,11 @@
     "category": "Lecture Hall",
     "description": "The main auditorium for large events, inaugurations, and conferences.",
     "directions": "Take the main staircase all the way up to the 4th floor. Walk past the Finance Division and the 4th Floor Lecture Hall (E401) to reach the auditorium.",
-    "floorPlanUrl": "https://drive.google.com/file/d/1JAQjaktKK0mbjQwdSD_pFWyD7nQsW0h9/view?usp=drive_link",
-    "imageUrl": "https://drive.google.com/file/d/1pFDCw7O2gS79TTQiz3n5Q1IQ1CvOHBkF/view?usp=drive_link"
+    "imageUrl": "/places/auditorium.png",
+    "floorPlanUrl": "https://drive.google.com/file/d/1JAQjaktKK0mbjQwdSD_pFWyD7nQsW0h9/view?usp=drive_link"
   },
   {
+    "id": "1773551032603",
     "name": "E401",
     "building": "Main Building",
     "floor": "4th Floor",
@@ -111,8 +117,18 @@
     "hours": "",
     "accessibility": "",
     "contact": "",
-    "imageUrl": "https://drive.google.com/file/d/1U0rHjJKwth0AGPBmWOlVoAOoHhSpm1-s/view?usp=drive_link",
-    "floorPlanUrl": "",
-    "id": "1773551032603"
+    "imageUrl": "/places/e401.png",
+    "floorPlanUrl": ""
+  },
+  {
+    "id": "1773551032604",
+    "name": "S203",
+    "building": "Main Building",
+    "floor": "2nd Floor",
+    "category": "Lecture Hall",
+    "description": "Lecture hall used for computer science and information systems lectures.",
+    "directions": "Located on the 2nd floor. Take the main staircase, walk past the library and it's located along the corridor.",
+    "imageUrl": "/places/s203.png",
+    "floorPlanUrl": ""
   }
 ]
