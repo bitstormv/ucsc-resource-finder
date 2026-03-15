@@ -6,6 +6,40 @@ import { Place } from './data/places';
 
 const CATEGORIES = ['All', 'Lecture Hall', 'Lab', 'Office', 'Library', 'Canteen', 'Other'];
 
+/**
+ * Converts a Google Drive sharing link to a direct image URL
+ */
+const getDirectDriveUrl = (url: string | undefined) => {
+  if (!url) return url;
+  
+  // Handle Google Drive links
+  if (url.includes('drive.google.com')) {
+    let fileId = '';
+    
+    // Look for anything between /d/ and the next / or ?
+    const dPattern = /\/d\/([^\/\?]+)/;
+    const dMatch = url.match(dPattern);
+    
+    if (dMatch && dMatch[1]) {
+      fileId = dMatch[1];
+    } else {
+      // Pattern for ?id=FILE_ID
+      const idPattern = /[?&]id=([^&]+)/;
+      const idMatch = url.match(idPattern);
+      if (idMatch && idMatch[1]) {
+        fileId = idMatch[1];
+      }
+    }
+    
+    if (fileId) {
+      // Return the thumbnail URL which is more reliable for direct embedding
+      return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+    }
+  }
+  
+  return url;
+};
+
 export default function UCSCPlaces() {
   const { places } = usePlaces();
   const [searchQuery, setSearchQuery] = useState('');
@@ -177,12 +211,16 @@ export default function UCSCPlaces() {
                   <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
                     {place.category}
                   </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                    <Building className="w-3 h-3" /> {place.building}
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                    <Layers className="w-3 h-3" /> {place.floor}
-                  </span>
+                  {place.building && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                      <Building className="w-3 h-3" /> {place.building}
+                    </span>
+                  )}
+                  {place.floor && (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                      <Layers className="w-3 h-3" /> {place.floor}
+                    </span>
+                  )}
                 </div>
 
                 <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2">
@@ -276,21 +314,28 @@ export default function UCSCPlaces() {
                     <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
                       {selectedPlace.category}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                      <Building className="w-4 h-4" /> {selectedPlace.building}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                      <Layers className="w-4 h-4" /> {selectedPlace.floor}
-                    </span>
+                    {selectedPlace.building && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                        <Building className="w-4 h-4" /> {selectedPlace.building}
+                      </span>
+                    )}
+                    {selectedPlace.floor && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                        <Layers className="w-4 h-4" /> {selectedPlace.floor}
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 aspect-video relative">
                     <img 
-                      src={selectedPlace.imageUrl || `https://placehold.co/600x400/f8fafc/475569?text=Photo+of+${encodeURIComponent(selectedPlace.name)}`} 
+                      src={getDirectDriveUrl(selectedPlace.imageUrl) || `https://placehold.co/600x400/f8fafc/475569?text=Photo+of+${encodeURIComponent(selectedPlace.name)}`} 
                       alt={selectedPlace.name}
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = `https://placehold.co/600x400/f8fafc/475569?text=Photo+Not+Found`;
+                      }}
                     />
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-3">
                       <span className="text-white text-sm font-medium">Location Photo</span>
@@ -298,9 +343,12 @@ export default function UCSCPlaces() {
                   </div>
                   <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 aspect-video relative">
                     <img 
-                      src={selectedPlace.floorPlanUrl || `https://placehold.co/600x400/e2e8f0/0f172a?text=Floor+Plan:+${encodeURIComponent(selectedPlace.name)}`} 
+                      src={getDirectDriveUrl(selectedPlace.floorPlanUrl) || `https://placehold.co/600x400/e2e8f0/0f172a?text=Floor+Plan:+${encodeURIComponent(selectedPlace.name)}`} 
                       alt="Floor Plan"
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = `https://placehold.co/600x400/e2e8f0/0f172a?text=Floor+Plan+Not+Found`;
+                      }}
                     />
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-3">
                       <span className="text-white text-sm font-medium">Floor Plan</span>
