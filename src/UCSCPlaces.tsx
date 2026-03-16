@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, MapPin, Building, Layers, Info, Navigation, Clock, Accessibility, Phone, X, Star } from 'lucide-react';
+import { Search, MapPin, Building, Layers, Info, Navigation, Clock, Accessibility, Phone, X, Star, Maximize2 } from 'lucide-react';
 import { usePlaces } from './hooks/usePlaces';
 import { Place } from './data/places';
 
@@ -47,6 +47,7 @@ export default function UCSCPlaces() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  const [showOverviewPreview, setShowOverviewPreview] = useState(false);
 
   useEffect(() => {
     const savedFavorites = localStorage.getItem('ucsc_favorites');
@@ -85,6 +86,50 @@ export default function UCSCPlaces() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* Navigation Overview Section */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm"
+      >
+        <div className="flex flex-col lg:flex-row">
+          <div className="lg:w-1/2 p-6 sm:p-10 flex flex-col justify-center">
+            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold text-sm uppercase tracking-wider mb-4">
+              <Navigation className="w-5 h-5" />
+              Quick Navigation Guide
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
+              UCSC <span className="text-blue-600 dark:text-blue-400">Building Complex Overview</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+              Quickly locate the UCSC Building Complex. This map provides a direct overview of the main entrance from the Faculty of Science Gate.
+            </p>
+            <button 
+              onClick={() => setShowOverviewPreview(true)}
+              className="inline-flex items-center justify-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3.5 rounded-2xl font-bold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all self-start shadow-lg shadow-slate-200 dark:shadow-none"
+            >
+              <Maximize2 className="w-5 h-5" />
+              View Full Map
+            </button>
+          </div>
+          <div 
+            className="lg:w-1/2 relative group cursor-pointer overflow-hidden"
+            onClick={() => setShowOverviewPreview(true)}
+          >
+            <img 
+              src="/place-finder-overview.png" 
+              alt="UCSC Navigation Overview" 
+              className="w-full h-full object-cover min-h-[300px] group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 transition-colors flex items-center justify-center">
+              <div className="bg-white/90 backdrop-blur-md p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all transform scale-90 group-hover:scale-100 shadow-xl">
+                <Maximize2 className="w-6 h-6 text-slate-900" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight transition-colors">
           UCSC <span className="text-blue-600 dark:text-blue-400">Place Finder</span>
@@ -206,6 +251,38 @@ export default function UCSCPlaces() {
 
       {/* Modal Overlay */}
       <AnimatePresence>
+        {showOverviewPreview && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowOverviewPreview(false)}
+              className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
+            />
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-5xl max-h-[90vh] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden"
+            >
+              <button 
+                onClick={() => setShowOverviewPreview(false)}
+                className="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/40 text-white rounded-full transition-colors z-10 backdrop-blur-md"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <div className="w-full h-full overflow-auto">
+                <img 
+                  src="/place-finder-overview.png" 
+                  alt="Full Navigation Overview" 
+                  className="w-full h-auto min-h-full object-contain"
+                />
+              </div>
+            </motion.div>
+          </div>
+        )}
+
         {selectedPlace && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
             <motion.div 
